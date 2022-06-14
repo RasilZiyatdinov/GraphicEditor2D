@@ -1,0 +1,133 @@
+﻿<Window x:Class="GraphicEditor2D.MainWindow"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:GraphicEditor2D"
+        mc:Ignorable="d"
+        Title="Graphic2D" Height="950" Width="1300" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" Icon="/icon.png">
+   
+    
+    
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top" Background="#FFDAFFC9" FontWeight="Bold" FontFamily="Calibri" FontSize="18">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Создать" Click="CreateCanvasClick">
+                    <MenuItem.Icon>
+                        <Image Source="/new.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Сохранить как">
+                    <MenuItem.Icon>
+                        <Image Source="/save.ico"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header=".jpeg/.png" Click="SaveToImage" ></MenuItem>
+                    <MenuItem Header=".xaml" Click="SaveToXaml"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Открыть" Click="OpenClick">
+                    <MenuItem.Icon>
+                        <Image Source="/open.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Настройки">
+                
+            </MenuItem>
+            <MenuItem Header="Информация"></MenuItem>
+        </Menu>
+
+        <Border DockPanel.Dock="Top" BorderBrush="Black" Background="Black" BorderThickness="1" Panel.ZIndex="5" >
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#FFDAFFC9">
+                <Button x:Name="lineButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Click="LineCreateClick" Cursor="Hand" ToolTip="Нарисовать линию">
+                    <Image Source="/line.ico" />
+                </Button>
+                <!--<Button x:Name="rectangleButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Click="RectangleCreateButtonClick" >
+                        <Image Source="/rectangle.ico"/>
+                </Button>-->
+                <Button x:Name="polylgonButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Click="PolygonButtonClick" ToolTip="Нарисовать полигон" Cursor="Hand">
+                    <Image Source="/polygon.ico"/>
+                    
+                </Button>
+                <Button x:Name="editButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Cursor="Hand" Click="EditButtonClick" ToolTip="Редактировать фигуру">
+                    <Image Source="/edit.png"/>
+                </Button>
+                <Button x:Name="splineButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Cursor="Hand" ToolTip="Создать сплайн" Click="SplineButtonClick">
+                    <Image Source="/spline.ico"/>
+                </Button>
+                <Button x:Name="morfingButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Cursor="Hand" ToolTip="Морфинг" Click="MorfingButtonClick">
+                    <Image Source="/m.png"/>
+                </Button>
+                <Button x:Name="treeButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Cursor="Hand" ToolTip="Создать дерево" Click="TreeCreateButtonClick">
+                    <Image Source="/tree.png"/>
+                </Button>
+                <Button x:Name="groupButton" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Cursor="Hand" ToolTip="Группировка" Click="groupButtonClick">
+                    <Image Source="/g.png"/>
+                </Button>
+                <Button x:Name="deleteShape" Margin="5" Background="#FFDAFFC9" BorderBrush="Black" Cursor="Hand" Click="DeleteButtonClick" ToolTip="Удалить фигуру">
+                    <Image Source="/delete.ico"/>
+                </Button>
+                
+            </StackPanel>
+
+        </Border>
+
+        <ScrollViewer DockPanel.Dock="Right">
+           <StackPanel DockPanel.Dock="Right"  Background="#FFDAFFC9" Width="350
+                       " Orientation="Vertical">
+                <Label Content="Толщина" HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#FF673AB7"></Label>
+                <Slider Name="thickness" Margin="8"  BorderBrush="Black" Foreground="{Binding Path=BrushStroke, Mode=TwoWay}" Value="{Binding Path=Thickness, Mode=TwoWay}"  Minimum="2" Cursor="" TickPlacement="BottomRight" ></Slider>
+                <Label Content="Цвет" HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#FF673AB7"></Label>
+                <xctk:ColorPicker Margin="8" SelectedColor="{Binding Path=ColorStroke, Mode=TwoWay}" x:Name="myColorPicker" ></xctk:ColorPicker>
+                <Label Content="Поворот" HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#DD4F44BF"></Label>
+                <Label Content="Ось X" HorizontalContentAlignment="Left" FontSize="16" FontWeight="Bold" FontFamily="Arial" FontStyle="Italic"></Label>
+                <Slider Name="angleX" Margin="8" Value="{Binding Path=AngleX, Mode=TwoWay}" TickPlacement="None" Maximum="360" Width="Auto" SmallChange="1E-05" TickFrequency="1E-07"/>
+            <Label Content="Ось Y" HorizontalContentAlignment="Left" FontSize="16" FontWeight="Bold" FontStyle="Italic" FontFamily="Arial"></Label>
+
+            <Slider Name="angleY" Margin="8" Value="{Binding Path=AngleY, Mode=TwoWay}" TickPlacement="None" Maximum="360" SmallChange="1E-05" TickFrequency="1E-07"/>
+
+            <Label Content="Ось Z" HorizontalContentAlignment="Left" FontSize="16" FontWeight="Bold" FontStyle="Italic" FontFamily="Arial"></Label>
+
+            <Slider Name="angleZ" Margin="8" Value="{Binding Path=AngleZ, Mode=TwoWay}" TickPlacement="None" Maximum="360" SmallChange="1E-05" TickFrequency="1E-07"/>
+
+            <Label Content="Масштабирование" HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#DD4F44BF"></Label>
+            <Slider Name="scale" Margin="8" Value="{Binding Path=Scale, Mode=TwoWay}" Maximum="1" Minimum="-1" TickPlacement="None" SmallChange="1E-05" TickFrequency="1E-07"/>
+            <Label Content="Зеркалирование" HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#DD4F44BF"></Label>
+            <ComboBox Name="mirror" Margin="8" SelectedValue="{Binding Path=Mirror, Mode=TwoWay}" FontSize="16" FontWeight="Bold" SelectionChanged="MirrorSelectionChanged"></ComboBox>
+            <Label Content="Морфинг" HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#DD4F44BF"></Label>
+            <Slider Name="morfing" Margin="8" Value="{Binding Path=(local:Morfing.T), Mode=TwoWay}" Maximum="1" Minimum="0" TickPlacement="None"/>
+            <Label Name="grName" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding Path=(local:StaticClass.GroupName), Mode=TwoWay}"></Label>
+            <ListBox Name="groupList" ItemsSource="{Binding Path=(local:StaticClass.GrList), Mode=TwoWay}" FontFamily="Arial" FontWeight="Bold" FontStyle="Italic" SelectionChanged="GroupListSelectionChanged"/>
+            <Button x:Name="addGroupButton" Content="Добавить в группу" Visibility="{Binding Path=(local:StaticClass.ButtonVisible), Mode=TwoWay}" Margin="10" Click="AddGroupButtonClick"></Button>
+                <Button x:Name="deleteFromGroupButton" Visibility="{Binding Path=(local:StaticClass.ButtonDeleteVisible), Mode=TwoWay}" Margin="10" Content="Удалить из группы" Click="DeleteFromGroup" Cursor="Hand"></Button>
+           </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Height="35" Background="#FFDAFFC9">
+        <TextBox Margin="8" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Height="30" VerticalContentAlignment="Center" Name="statusLine" Text="{Binding Path=(local:StaticClass.ShapeName), Mode=OneWay}" FontFamily="Arial" FontWeight="Bold" Background="#FFDAFFC9" Cursor="Hand" FontSize="18" TextChanged="ShapeNameChanged" FontStyle="Italic"></TextBox>
+        
+        </StackPanel>
+        <ScrollViewer x:Name="scrViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+            <Canvas x:Name="myCanvas" Height="Auto">
+                <Canvas.Background>
+                    <DrawingBrush TileMode="Tile" Viewport="-3,-3,15,15" 
+                                     ViewportUnits="Absolute">
+                        <DrawingBrush.Drawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Geometry>
+                                    <RectangleGeometry Rect="0,0, 25,25"/>
+                                </GeometryDrawing.Geometry>
+                                <GeometryDrawing.Pen>
+                                    <Pen Brush="Gray" Thickness="1"/>
+                                </GeometryDrawing.Pen>
+                            </GeometryDrawing>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Canvas.Background>
+
+            </Canvas>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

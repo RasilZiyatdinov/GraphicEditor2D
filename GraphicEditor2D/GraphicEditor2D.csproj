@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="delete.ico" />
+    <None Remove="edit.png" />
+    <None Remove="g.png" />
+    <None Remove="icon.png" />
+    <None Remove="line.ico" />
+    <None Remove="m.png" />
+    <None Remove="new.png" />
+    <None Remove="open.ico" />
+    <None Remove="polygon.ico" />
+    <None Remove="rectangle.ico" />
+    <None Remove="save.ico" />
+    <None Remove="spline.ico" />
+    <None Remove="tree.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="delete.ico" />
+    <Resource Include="edit.png" />
+    <Resource Include="g.png" />
+    <Resource Include="icon.png" />
+    <Resource Include="line.ico" />
+    <Resource Include="m.png" />
+    <Resource Include="new.png" />
+    <Resource Include="open.ico" />
+    <Resource Include="polygon.ico" />
+    <Resource Include="rectangle.ico" />
+    <Resource Include="save.ico" />
+    <Resource Include="spline.ico" />
+    <Resource Include="tree.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helps\" />
+  </ItemGroup>
+
+</Project>
